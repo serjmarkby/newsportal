@@ -10,6 +10,7 @@ class NewsList(ListView):
     template_name = 'news.html'
     context_object_name = 'news'
     queryset = Post.objects.order_by('-dateCreation')
+    paginate_by = 9
 
 
 class NewsDetail(DeleteView):
