@@ -12,7 +12,14 @@ News
 {% block content %}
 {% if news %}
 <!-- Featured blog post-->
-{% for post in news %}
+
+<!-- Перед таблицей добавим форму для поиска -->
+<form method="GET">
+    {{ filter.form }} <!-- Форму от фильтров за нас сделает django. А вот кнопку, увы придётся делать самому -->
+    <input type="submit" value="Найти">
+</form>
+
+{% for post in filter.qs %}
 <div class="card mb-4">
     <a href="#!"><img class="card-img-top" src="{{ post.postPhoto }}" alt="..." /></a>
     <div class="card-body">
