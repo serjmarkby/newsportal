@@ -8,5 +8,11 @@ class PostFilter(FilterSet):
     # (т. е. подбираться) информация о товарах
     class Meta:
         model = Post
-        fields = ('author', 'categoryType', 'postCategory', 'rating', 'title', 'text')
+        # fields = ('author', 'dateCreation', 'postCategory', 'rating')
         # поля, которые мы будем фильтровать(т. е. отбирать по каким-то критериям, имена берутся из моделей)
+        fields = {
+            'author': ['exact'],
+            'dateCreation': ['gt'],
+            'postCategory': ['exact'],
+            'rating': ['gt'],
+        }
