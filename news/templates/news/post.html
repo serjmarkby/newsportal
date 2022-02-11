@@ -14,7 +14,7 @@ News - {{ post.title }}
     <!-- Post header-->
     <header class="mb-4">
         <!-- Post title-->
-        <h1 class="fw-bolder mb-1">{{ post.title }}</h1>
+        <h1 class="fw-bolder mb-1">{{ post.title|censor }}</h1>
         <!-- Post meta content-->
         <div class="text-muted fst-italic mb-2">Posted on {{ post.dateCreation }}</div>
         <!-- Post categories-->
@@ -25,7 +25,7 @@ News - {{ post.title }}
     <figure class="mb-4"><img class="img-fluid rounded" src="{{ post.postPhoto }}" alt="..." /></figure>
     <!-- Post content-->
     <section class="mb-5">
-        <p class="card-text">{{ post.text }}</p>
+        <p class="card-text">{{ post.text|censor }}</p>
     </section>
 </article>
 <!-- Comments section-->
