@@ -54,18 +54,16 @@ class SearchList(ListView):
 
 
 class NewsCreate(CreateView):
-    model = Post
     template_name = 'news_create.html'
     form_class = NewsForm
-    success_url = '/news/'
-    queryset = Post.objects.all()
+    # queryset = Post.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)  # создаем новую форму, забивая в неё данные из POST запроса
-
-        if form.is_valid():
-            form.save()
-        return super().get(request, *args, **kwargs)  # отправляем пользователя обратно на GET-запрос.
+    # def post(self, request, *args, **kwargs):
+    #     form = self.form_class(request.POST)  # создаем новую форму, забивая в неё данные из POST запроса
+    #
+    #     if form.is_valid():
+    #         form.save()
+    #     return super().get(request, *args, **kwargs)  # отправляем пользователя обратно на GET-запрос.
 
 
 # дженерик для редактирования новости
