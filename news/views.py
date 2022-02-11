@@ -10,19 +10,28 @@ from .forms import NewsForm
 
 
 class NewsList(ListView):
-    model = Post
-    template_name = 'news.html'
-    context_object_name = 'news'
-    queryset = Post.objects.order_by('-dateCreation')
-    paginate_by = 9
-    form_class = NewsFilter
+    model = Post  # указываем модель, объекты которой мы будем выводить
+    template_name = 'news.html'  # указываем имя шаблона, в котором будет лежать HTML, в
+    # котором будут все инструкции о том, как именно пользователю должны вывестись наши объекты
+    context_object_name = 'news'  # это имя списка, в котором будут лежать все объекты, его надо указать,
+    # чтобы обратиться к самому списку объектов через HTML-шаблон
+    queryset = Post.objects.order_by('-dateCreation')  # задаем фильтрацию для отображения - последняя новость вверху
+    paginate_by = 9  # пагинация - сколько объектов будет на 1 странице
+    form_class = NewsForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filter'] = NewsFilter(self.request.GET, queryset=self.get_queryset())  # вписываем наш фильтр в контекст
 
-        context['form'] = NewsForm
+        context['form'] = NewsForm()
         return context
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            form.save()
+        return super().get(request, *args, **kwargs)  # отправляем пользователя обратно на GET-запрос.
 
 
 class NewsDetail(DeleteView):
