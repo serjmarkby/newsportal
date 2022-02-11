@@ -11,7 +11,6 @@ News - Поиск новостей
     {{ filter.form }} <!-- Форму от фильтров за нас сделает django. А вот кнопку, увы придётся делать самому -->
     <input class="btn btn-primary" type="submit" value="Найти">
 </form>
-
 {% if news %}
 <!-- Featured blog post-->
 {% for post in filter.qs %}
