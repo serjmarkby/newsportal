@@ -16,7 +16,7 @@ News
 <!-- Перед таблицей добавим форму для поиска -->
 <form method="GET">
     {{ filter.form }} <!-- Форму от фильтров за нас сделает django. А вот кнопку, увы придётся делать самому -->
-    <input type="submit" value="Найти">
+    <input class="btn btn-primary" type="submit" value="Найти">
 </form>
 
 {% for post in filter.qs %}
@@ -61,4 +61,9 @@ News
     </ul>
 </nav>
 {% endif %}
+<form method="POST">
+    {% csrf_token %}
+    {{ form }} <!-- Теперь нам нужна только готовая форма и кнопка -->
+    <input class="btn btn-primary" type="submit" value="Добавить новость">
+</form>
 {% endblock content %}
