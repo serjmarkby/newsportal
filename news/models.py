@@ -66,6 +66,10 @@ class Post(models.Model):
     def preview(self):
         return f"{self.title}...\n{self.text[0:123]}\n\nРейтинг - {self.rating}"
 
+    def get_absolute_url(self):  # добавим абсолютный путь, чтобы после создания нас
+        # перебрасывало на страницу с новостью
+        return f'/news/{self.id}'
+
     class Meta:
         verbose_name = 'Новость'
         verbose_name_plural = 'Новости'
