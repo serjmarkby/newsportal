@@ -10,7 +10,7 @@ class Author(models.Model):
     ratingAuthor = models.SmallIntegerField(default=0)
 
     def __str__(self):
-        return f"{self.authorUser}"
+        return f"{self.authorUser} {self.ratingAuthor}"
 
     class Meta:
         verbose_name = 'Автор'
@@ -33,7 +33,7 @@ class Category(models.Model):
     name = models.CharField(max_length=64, unique=True)
 
     def __str__(self):
-        return self.name
+        return f'{self.name}'
 
     class Meta:
         verbose_name = 'Категория'
