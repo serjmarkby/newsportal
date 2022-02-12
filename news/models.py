@@ -10,7 +10,7 @@ class Author(models.Model):
     ratingAuthor = models.SmallIntegerField(default=0)
 
     def __str__(self):
-        return f"{self.authorUser} {self.ratingAuthor}"
+        return f"{self.authorUser}"
 
     class Meta:
         verbose_name = 'Автор'
@@ -27,6 +27,10 @@ class Author(models.Model):
 
         self.ratingAuthor = pRat * 3 + cRat
         self.save()
+
+    def get_absolute_url(self):  # добавим абсолютный путь, чтобы после создания нас
+        # перебрасывало на страницу профиля
+        return f'/author/{self.id}/'
 
 
 class Category(models.Model):
