@@ -1,10 +1,12 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, TemplateView
 from django.core.paginator import Paginator
 
 from .models import Author, Post, PostCategory, Comment, Category
+from django.contrib.auth.models import User
 from .filters import NewsFilter
-from .forms import NewsForm
+from .forms import NewsForm, UserForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
@@ -56,14 +58,6 @@ class SearchList(ListView):
 class NewsCreate(CreateView):
     template_name = 'news_create.html'
     form_class = NewsForm
-    # queryset = Post.objects.all()
-
-    # def post(self, request, *args, **kwargs):
-    #     form = self.form_class(request.POST)  # создаем новую форму, забивая в неё данные из POST запроса
-    #
-    #     if form.is_valid():
-    #         form.save()
-    #     return super().get(request, *args, **kwargs)  # отправляем пользователя обратно на GET-запрос.
 
 
 # дженерик для редактирования новости
@@ -83,5 +77,23 @@ class NewsDelete(DeleteView):
     template_name = 'news_delete.html'
     queryset = Post.objects.all()
     success_url = '/news/'
+
+
+class AuthorDetail(DetailView):
+    model = Author
+    template_name = 'author.html'
+    context_object_name = 'author'
+
+
+# дженерик для редактирования юзера
+class UserUpdate(UpdateView):
+    template_name = 'edit_user.html'
+    form_class = UserForm
+
+    # метод get_object мы используем вместо queryset, чтобы получить информацию
+    # об объекте, который мы собираемся редактировать
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        return User.objects.get(pk=id)
 
 
