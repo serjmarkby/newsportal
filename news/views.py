@@ -6,7 +6,7 @@ from .models import Author, Post, PostCategory, Comment, Category
 from django.contrib.auth.models import User
 from .filters import NewsFilter
 from .forms import NewsForm, UserForm
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 # Create your views here.
 
@@ -55,13 +55,18 @@ class SearchList(ListView):
         return context
 
 
-class NewsCreate(CreateView):
+class NewsCreate(PermissionRequiredMixin, CreateView):
     template_name = 'news_create.html'
     form_class = NewsForm
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_not_premium'] = not self.request.user.groups.filter(name='authors').exists()
+        return context
+
 
 # дженерик для редактирования новости
-class NewsUpdate(UpdateView):
+class NewsUpdate(PermissionRequiredMixin, UpdateView):
     template_name = 'news_create.html'
     form_class = NewsForm
 
@@ -71,12 +76,22 @@ class NewsUpdate(UpdateView):
         id = self.kwargs.get('pk')
         return Post.objects.get(pk=id)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_not_premium'] = not self.request.user.groups.filter(name='authors').exists()
+        return context
+
 
 # дженерик для удаления товара
-class NewsDelete(DeleteView):
+class NewsDelete(PermissionRequiredMixin, DeleteView):
     template_name = 'news_delete.html'
     queryset = Post.objects.all()
     success_url = '/news/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_not_premium'] = not self.request.user.groups.filter(name='authors').exists()
+        return context
 
 
 class AuthorDetail(DetailView):
@@ -86,7 +101,7 @@ class AuthorDetail(DetailView):
 
 
 # дженерик для редактирования юзера
-class UserUpdate(UpdateView):
+class UserUpdate(LoginRequiredMixin, TemplateView):
     template_name = 'edit_user.html'
     form_class = UserForm
 
@@ -95,5 +110,14 @@ class UserUpdate(UpdateView):
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')
         return User.objects.get(pk=id)
+
+
+class IndexView(LoginRequiredMixin, TemplateView):
+    template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_not_premium'] = not self.request.user.groups.filter(name='authors').exists()
+        return context
 
 

@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import NewsList, NewsDetail, NewsCreate, SearchList, NewsUpdate, NewsDelete, UserUpdate, AuthorDetail
+from .views import NewsList, NewsDetail, NewsCreate, SearchList, NewsUpdate, NewsDelete, UserUpdate, AuthorDetail, IndexView
 
 
 urlpatterns = [
-    path('news/', NewsList.as_view(),name='news'),
+    path('', IndexView.as_view()),
+    path('news/', NewsList.as_view(), name='news'),
     path('news/<int:pk>', NewsDetail.as_view(), name='post'),
     path('news/create/', NewsCreate.as_view(), name='news_create'),
     path('search/', SearchList.as_view(), name='search'),

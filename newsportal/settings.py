@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 'news.apps.UploadAppConfig',
     'news',
+    'sign',
     'django.contrib.sites',
     'django_filters',
     'allauth',
@@ -127,6 +128,7 @@ USE_I18N = True
 USE_TZ = True
 
 LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'
 SITE_ID = 1
 
 ACCOUNT_EMAIL_REQUIRED = True
@@ -134,6 +136,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_FORMS = {'signup': 'sign.forms.BasicSignupForm'}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/

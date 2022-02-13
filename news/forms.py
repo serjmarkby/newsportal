@@ -1,8 +1,9 @@
 from django.forms import ModelForm, BooleanField
 from .models import Post, Author
 from django.contrib.auth.models import User
-from allauth.account.forms import SignupForm
+from django.shortcuts import redirect
 from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
 
 
 # Создаём модельную форму
@@ -23,11 +24,3 @@ class UserForm(ModelForm):
         model = User
         fields = ['username', 'last_name', 'first_name', 'email']
 
-
-class BasicSignupForm(SignupForm):
-
-    def save(self, request):
-        user = super(BasicSignupForm, self).save(request)
-        basic_group = Group.objects.get(name='common')
-        basic_group.user_set.add(user)
-        return user
