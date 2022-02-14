@@ -105,6 +105,7 @@ class AuthorDetail(DetailView):
 class UserUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'edit_user.html'
     form_class = UserForm
+    success_url = '/'
 
     # метод get_object мы используем вместо queryset, чтобы получить информацию
     # об объекте, который мы собираемся редактировать
