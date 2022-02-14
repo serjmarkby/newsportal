@@ -55,7 +55,7 @@ class SearchList(ListView):
         return context
 
 
-class NewsCreate(PermissionRequiredMixin, CreateView):
+class NewsCreate(LoginRequiredMixin, CreateView):
     template_name = 'news_create.html'
     form_class = NewsForm
 
@@ -66,7 +66,7 @@ class NewsCreate(PermissionRequiredMixin, CreateView):
 
 
 # дженерик для редактирования новости
-class NewsUpdate(PermissionRequiredMixin, UpdateView):
+class NewsUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'news_create.html'
     form_class = NewsForm
 
@@ -83,8 +83,9 @@ class NewsUpdate(PermissionRequiredMixin, UpdateView):
 
 
 # дженерик для удаления товара
-class NewsDelete(PermissionRequiredMixin, DeleteView):
+class NewsDelete(LoginRequiredMixin, DeleteView):
     template_name = 'news_delete.html'
+    # form_class = NewsForm
     queryset = Post.objects.all()
     success_url = '/news/'
 
@@ -101,7 +102,7 @@ class AuthorDetail(DetailView):
 
 
 # дженерик для редактирования юзера
-class UserUpdate(LoginRequiredMixin, TemplateView):
+class UserUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'edit_user.html'
     form_class = UserForm
 
