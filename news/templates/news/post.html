@@ -16,9 +16,11 @@ News - {{ post.title }}
         <!-- Post title-->
         <h1 class="fw-bolder mb-1">{{ post.title|censor }}</h1>
         <!-- Post meta content-->
-        <div class="text-muted fst-italic mb-2">Posted on {{ post.dateCreation }}</div>
+        <div class="text-muted fst-italic mb-2">Дата публикации {{ post.dateCreation }}</div>
         <!-- Post categories-->
-        <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ category }}</a>
+        {% for category in post.postCategory.all %}
+        <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ category.name }}</a>
+        {% endfor %}
 
     </header>
     <!-- Preview image figure-->
