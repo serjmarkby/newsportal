@@ -14,9 +14,12 @@ News
 <!-- Featured blog post-->
 {% for post in news %}
 <div class="card mb-4">
-    <a href="#!"><img class="card-img-top" src="{{ post.postPhoto }}" alt="..." /></a>
+    <a href="{% url 'post' post.id %}"><img class="card-img-top" src="{{ post.postPhoto }}" alt="..." /></a>
     <div class="card-body">
         <div class="small text-muted">{{ post.dateCreation }}</div>
+        {% for category in post.postCategory.all %}
+        <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ category.name }}</a>
+        {% endfor %}
         <h2 class="card-title">{{ post.title|truncatewords:10|censor }}</h2>
         <p class="card-text">{{ post.text|truncatechars:250|censor }}</p>
         <a class="btn btn-primary" href="{% url 'post' post.id %}">Читать →</a>
