@@ -23,8 +23,6 @@ News
         <h2 class="card-title">{{ post.title|truncatewords:10|censor }}</h2>
         <p class="card-text">{{ post.text|truncatechars:250|censor }}</p>
         <a class="btn btn-primary" href="{% url 'post' post.id %}">Читать →</a>
-        <a class="btn btn-primary" href="{% url 'news_create' post.id %}">Редактировать →</a>
-        <a class="btn btn-primary" href="{% url 'news_delete' post.id %}">Удалить →</a>
     </div>
 </div>
 
