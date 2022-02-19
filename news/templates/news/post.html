@@ -73,3 +73,22 @@ News - {{ post.title }}
     </div>
 </section>
 {% endblock content %}
+
+{% block widjet %}
+{% if user.is_authenticated %}
+<div class="card mb-4">
+    <div class="card-header">Действия</div>
+    <div class="card-body">
+        <a class="btn btn-primary" href="{% url 'news_create' post.id %}">Редактировать →</a>
+        <a class="btn btn-primary" href="{% url 'news_delete' post.id %}">Удалить →</a>
+    </div>
+</div>
+{% else %}
+<div class="card mb-4">
+    <div class="card-header">Действия</div>
+    <div class="card-body">
+        <a class="btn btn-primary" href="{% url 'news_create' post.id %}">Подписаться на автора →</a>
+    </div>
+</div>
+{% endif %}
+{% endblock widjet %}
