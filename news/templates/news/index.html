@@ -6,7 +6,7 @@
 <div> Ваш рейтинг: {{ user.username.ratingAuthor }} </div>
 <br>
 {% if is_not_premium %}
-<a class="btn btn-outline-success" href="sign/upgrade/"> Хочу стать автором!</a>
+<a class="btn btn-primary" href="sign/upgrade/"> Хочу стать автором!</a>
 {% endif %}
 <a class="btn btn-outline-danger" href="sign/logout/">Выйти</a>
 {% endblock content %}
